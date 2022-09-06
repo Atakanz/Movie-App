@@ -15,7 +15,7 @@ const SignUp = ({navigation}) => {
         holder1="E-mail"
         holder2="Password"
         holder3="Password again"
-        name1="Sıgn Up"
+        name1="Sign Up"
         task1={goBack}
       />
     </SafeAreaView>

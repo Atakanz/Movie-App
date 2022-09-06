@@ -8,15 +8,14 @@ export default StyleSheet.create({
   },
   nameInput: {
     width: Dimensions.get('window').width / 1.2,
-    position: 'relative',
-    left: 56,
+    alignItems: 'center',
   },
   logoView: {
     marginBottom: 25,
     alignItems: 'center',
   },
   logo: {
-    width: 280,
+    width: 300,
     height: 100,
   },
   buttonRow: {
