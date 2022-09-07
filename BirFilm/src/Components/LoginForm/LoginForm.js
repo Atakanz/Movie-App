@@ -12,16 +12,18 @@ const LoginForm = props => {
           {props.isLogoExist && (
             <Image style={styles.logo} source={props.isLogoExist} />
           )}
-          {/* if isLogoExist is undefined not show here */}
+          {/* if isLogoExist is undefined then not show here */}
         </View>
         <View style={styles.nameInput}>
           <FormUnit
             labelName="E-mail"
             holder={props.holder1}
+            value={props.value1}
             task={props.emailFormTask}
           />
           <FormUnit
             labelName="Password"
+            value={props.value2}
             holder={props.holder2}
             task={props.passwordFormTask}
           />
@@ -29,11 +31,18 @@ const LoginForm = props => {
           {props.holder3 && (
             <FormUnit
               labelName="PasswordAgain"
+              value={props.value3}
               holder={props.holder3}
-              task={props.passwordFormTask}
+              task={props.repasswordFormTask}
             />
             // passwordagain is shown only signup page
           )}
+          <FormUnit
+            labelName="User Name"
+            value={props.value4}
+            holder={props.holder4}
+            task={props.userNameFormTask}
+          />
         </View>
       </View>
       <View style={styles.buttonRow}>
