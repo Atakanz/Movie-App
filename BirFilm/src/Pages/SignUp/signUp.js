@@ -1,39 +1,44 @@
 import React, {useState} from 'react';
-import {SafeAreaView, Text} from 'react-native';
+import {SafeAreaView, Text, Alert} from 'react-native';
 import styles from './signUp.style';
 import LoginForm from '../../Components/LoginForm/LoginForm';
-import {useSelector, useDispatch} from 'react-redux';
-import {setUser} from '../../Management/Features/Login/userSlice';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import axios from 'axios';
 
 const SignUp = ({navigation}) => {
-  const [userEmail, setUserEmail] = useState('');
-  const [userPassword, setUserPassword] = useState('');
-  const [userRePassword, setUserRePassword] = useState('');
-  const [userName, setUserName] = useState('');
-  const userRedux = useSelector(state => state.user.user);
-  const dispatch = useDispatch();
+  const [newUserEmail, setNewUserEmail] = useState('');
+  const [newUserPassword, setNewUserPassword] = useState('');
+  const [newUserRePassword, setNewUserRePassword] = useState('');
+  const [newUserName, setNewUserName] = useState('');
+
   const goBack = () => {
     return navigation.goBack();
   };
-  // const userObject = {
-  //   email: userEmail,
-  //   password: userPassword,
-  //   username: userName,
-  // };
 
   const signUpTask = () => {
-    dispatch(
-      setUser({
-        email: userEmail,
-        password: userPassword,
-        username: userName,
-      }),
-    );
+    if (
+      newUserRePassword === newUserPassword &&
+      newUserRePassword !== '' &&
+      newUserEmail !== '' &&
+      newUserName !== '' &&
+      newUserPassword !== ''
+    ) {
+      axios.post('http://localhost:3000/users', {
+        email: newUserEmail,
+        password: newUserPassword,
+        username: newUserName,
+      });
+    } else {
+      Alert.alert('Bir Film', 'Passwords do not match');
+      return;
+    }
     goBack();
   };
+
   return (
     <SafeAreaView style={styles.container}>
-      <Text>{userPassword}</Text>
+      <Text>{newUserEmail}</Text>
       <LoginForm
         isLogoExist={require('../../Assets/logo.png')}
         // logo is shown only loginpages not editing page
@@ -42,14 +47,14 @@ const SignUp = ({navigation}) => {
         holder3="Password again"
         holder4="User name"
         name1="Sign Up"
-        value1={userEmail}
-        value2={userPassword}
-        value3={userRePassword}
-        value4={userName}
-        emailFormTask={setUserEmail}
-        passwordFormTask={setUserPassword}
-        repasswordFormTask={setUserRePassword}
-        userNameFormTask={setUserName}
+        value1={newUserEmail}
+        value2={newUserPassword}
+        value3={newUserRePassword}
+        value4={newUserName}
+        emailFormTask={setNewUserEmail}
+        passwordFormTask={setNewUserPassword}
+        repasswordFormTask={setNewUserRePassword}
+        userNameFormTask={setNewUserName}
         task1={signUpTask}
       />
     </SafeAreaView>
