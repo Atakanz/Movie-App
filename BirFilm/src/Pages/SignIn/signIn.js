@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import {SafeAreaView, Text, Button, Alert} from 'react-native';
+import {SafeAreaView, Alert} from 'react-native';
 import styles from './signIn.style';
 import LoginForm from '../../Components/LoginForm/LoginForm';
-import {useSelector, useDispatch} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import axios from 'axios';
 import {setUser} from '../../Management/Features/Login/userSlice';
+import {setAuth} from '../../Management/Features/Auth/authSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SignIn = ({navigation}) => {
@@ -17,12 +18,8 @@ const SignIn = ({navigation}) => {
   };
 
   const [allUserArray, setAllUserArray] = useState([]);
-  const [existUser, setExistUser] = useState([]);
-  const dispatch = useDispatch();
 
-  const saveUser = async () => {
-    await AsyncStorage.setItem('savedItem', JSON.stringify(existUser));
-  };
+  const dispatch = useDispatch();
 
   const handleGetUsers = () => {
     axios.get('http://localhost:3000/users').then(response => {
@@ -33,28 +30,32 @@ const SignIn = ({navigation}) => {
     handleGetUsers();
   }, []);
 
-  allUserArray.forEach(object => {
-    delete object.id;
-  });
-
-  const checker = () => {
-    setExistUser({
-      email: userEmail,
-      password: userPassword,
-      username: userName,
-    });
+  const logInButton = () => {
     const result = allUserArray.some(function (item) {
       return (
-        item.email === existUser.email &&
-        item.password === existUser.password &&
-        item.username === existUser.username
+        item.email === userEmail &&
+        item.password === userPassword &&
+        item.username === userName
       );
     });
     if (result === true) {
-      existUser.loggedIn = true;
-      dispatch(setUser(existUser));
+      dispatch(
+        setUser({
+          email: userEmail,
+          password: userPassword,
+          username: userName,
+        }),
+      );
+      dispatch(setAuth(true));
       navigation.navigate('BottomTab');
-      saveUser();
+      AsyncStorage.setItem(
+        'savedItem',
+        JSON.stringify({
+          email: userEmail,
+          password: userPassword,
+          username: userName,
+        }),
+      );
     } else {
       Alert.alert('Bir Film', 'User not found');
     }
@@ -64,7 +65,6 @@ const SignIn = ({navigation}) => {
     <SafeAreaView style={styles.container}>
       <LoginForm
         isLogoExist={require('../../Assets/logo.png')}
-        // logo is shown only loginpages, not editing page
         holder1="E-mail"
         holder2="Password"
         holder4="User name"
@@ -76,7 +76,7 @@ const SignIn = ({navigation}) => {
         emailFormTask={value => setUserEmail(value)}
         passwordFormTask={value => setUserPassword(value)}
         userNameFormTask={value => setUserName(value)}
-        task1={checker}
+        task1={logInButton}
         task2={signUpButton}
       />
     </SafeAreaView>
