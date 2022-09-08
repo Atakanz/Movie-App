@@ -7,18 +7,21 @@ import {BottomTab} from './BottomTab';
 import MovieDetail from '../Pages/MovieDetail/movieDetail';
 import {useSelector, useDispatch} from 'react-redux';
 import {setUser} from '../Management/Features/Login/userSlice';
+import {setAuth} from '../Management/Features/Auth/authSlice';
+import {setLoading} from '../Management/Features/Loading/loadingSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Loading from '../Components/Loading';
 const Stack = createNativeStackNavigator();
 
 export const MainStack = () => {
-  const [isSignedIn, setSignedIn] = useState(false);
   const dispatch = useDispatch();
   const getSavedItem = async () => {
     let userData = await AsyncStorage.getItem('savedItem');
     const _user = userData ? userData : null;
     dispatch(setUser(_user));
+    dispatch(setLoading(false));
     if (_user !== null) {
-      setSignedIn(true);
+      dispatch(setAuth(true));
     }
   };
   //   const getLoginStatus = async () => {
@@ -28,28 +31,34 @@ export const MainStack = () => {
     getSavedItem();
   }, []);
 
-  const userInfo = useSelector(state => state.user.user);
-  //   console.log(userInfo);
+  const isSignedIn = useSelector(state => state.auth.auth);
+  const user = useSelector(state => state.user.user);
+  const isLoading = useSelector(state => state.loading.loading);
+  // console.log(isSignedIn);
+  console.log(isLoading);
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}>
-        {isSignedIn === false ? (
-          <>
-            <Stack.Screen name="SignIn" component={SignIn} />
-            <Stack.Screen name="SignUp" component={SignUp} />
-            <Stack.Screen name="BottomTab" component={BottomTab} />
-            <Stack.Screen name="MovieDetail" component={MovieDetail} />
-          </>
-        ) : (
-          <>
-            <Stack.Screen name="BottomTab" component={BottomTab} />
-            <Stack.Screen name="MovieDetail" component={MovieDetail} />
-          </>
-        )}
-      </Stack.Navigator>
+      {isLoading === true ? (
+        <Loading />
+      ) : !user ? (
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false,
+          }}>
+          <Stack.Screen name="SignIn" component={SignIn} />
+          <Stack.Screen name="SignUp" component={SignUp} />
+          <Stack.Screen name="BottomTab" component={BottomTab} />
+          <Stack.Screen name="MovieDetail" component={MovieDetail} />
+        </Stack.Navigator>
+      ) : (
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false,
+          }}>
+          <Stack.Screen name="BottomTab" component={BottomTab} />
+          <Stack.Screen name="MovieDetail" component={MovieDetail} />
+        </Stack.Navigator>
+      )}
     </NavigationContainer>
   );
 };
