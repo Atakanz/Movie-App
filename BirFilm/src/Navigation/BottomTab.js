@@ -9,9 +9,39 @@ const Tab = createBottomTabNavigator();
 export const BottomTab = () => {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="MovieList" component={MovieList} />
-      <Tab.Screen name="SearchMovie" component={SearchMovie} />
-      <Tab.Screen name="SettingStack" component={SettingStack} />
+      <Tab.Screen
+        name="MovieList"
+        component={MovieList}
+        options={{
+          tabBarLabel: 'Movies',
+          tabBarLabelStyle: {fontSize: 15, fontWeight: 'bold'},
+          tabBarIcon: ({color, size}) => (
+            <Icon name="movie" color="black" size={25} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="SearchMovie"
+        component={SearchMovie}
+        options={{
+          tabBarLabel: 'Search',
+          tabBarLabelStyle: {fontSize: 15, fontWeight: 'bold'},
+          tabBarIcon: ({color, size}) => (
+            <Icon name="magnify" color="black" size={25} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="SettingStack"
+        component={SettingStack}
+        options={{
+          tabBarLabel: 'Profile',
+          tabBarLabelStyle: {fontSize: 15, fontWeight: 'bold'},
+          tabBarIcon: ({color, size}) => (
+            <Icon name="account-settings" color="black" size={25} />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 };
