@@ -12,16 +12,12 @@ const EditProfile = ({navigation}) => {
   const [userEmail, setUserEmail] = useState(null);
   const [userPassword, setUserPassword] = useState(null);
   const [userName, setUserName] = useState(null);
+  const userInfo = useSelector(state => state.user.user);
   const dispatch = useDispatch();
-  const remover = async () => {
+  const logOut = async () => {
     dispatch(setUser(null));
     await AsyncStorage.removeItem('savedItem');
     dispatch(setAuth(false));
-  };
-
-  const logOut = () => {
-    remover();
-    // console.log(userInfo);
   };
 
   const changeInformation = () => {
