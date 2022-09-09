@@ -34,7 +34,6 @@ export const MainStack = () => {
   const isSignedIn = useSelector(state => state.auth.auth);
   const user = useSelector(state => state.user.user);
   const isLoading = useSelector(state => state.loading.loading);
-  // console.log(isSignedIn);
   console.log(isLoading);
   return (
     <NavigationContainer>
