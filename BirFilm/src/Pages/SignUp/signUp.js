@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {SafeAreaView, Text, Alert} from 'react-native';
 import styles from './signUp.style';
 import LoginForm from '../../Components/LoginForm/LoginForm';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import axios from 'axios';
 
@@ -56,6 +55,8 @@ const SignUp = ({navigation}) => {
         repasswordFormTask={setNewUserRePassword}
         userNameFormTask={setNewUserName}
         task1={signUpTask}
+        visibilityFalse={false}
+        visibilityTrue={true}
       />
     </SafeAreaView>
   );
