@@ -10,7 +10,7 @@ export const BottomTab = () => {
   return (
     <Tab.Navigator>
       <Tab.Screen
-        name="MovieList"
+        name="Movies"
         component={MovieList}
         options={{
           tabBarLabel: 'Movies',
@@ -21,7 +21,7 @@ export const BottomTab = () => {
         }}
       />
       <Tab.Screen
-        name="SearchMovie"
+        name="Search"
         component={SearchMovie}
         options={{
           tabBarLabel: 'Search',
@@ -32,7 +32,7 @@ export const BottomTab = () => {
         }}
       />
       <Tab.Screen
-        name="SettingStack"
+        name="Settings"
         component={SettingStack}
         options={{
           tabBarLabel: 'Profile',
