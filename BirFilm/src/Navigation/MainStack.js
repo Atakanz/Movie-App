@@ -10,7 +10,7 @@ import {setUser} from '../Management/Features/Login/userSlice';
 import {setAuth} from '../Management/Features/Auth/authSlice';
 import {setLoading} from '../Management/Features/Loading/loadingSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-// import Loading from '../Components/Loading/loading';
+import Loading from '../Components/Loading/loading';
 const Stack = createNativeStackNavigator();
 
 export const MainStack = () => {
@@ -31,16 +31,14 @@ export const MainStack = () => {
     getSavedItem();
   }, []);
 
-  const isSignedIn = useSelector(state => state.auth.auth);
   const user = useSelector(state => state.user.user);
   const isLoading = useSelector(state => state.loading.loading);
   console.log(isLoading);
   return (
     <NavigationContainer>
-      {/* {isLoading === true ? (
-        <Loading /> */}
-      {/* ) :  */}
-      {!user ? (
+      {isLoading === true ? (
+        <Loading />
+      ) : !user ? (
         <Stack.Navigator
           screenOptions={{
             headerShown: false,
