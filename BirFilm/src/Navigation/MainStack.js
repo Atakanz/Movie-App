@@ -17,7 +17,7 @@ export const MainStack = () => {
   const dispatch = useDispatch();
   const getSavedItem = async () => {
     let userData = await AsyncStorage.getItem('savedItem');
-    const _user = userData ? userData : null;
+    const _user = userData ? JSON.parse(userData) : null;
     dispatch(setUser(_user));
     dispatch(setLoading(false));
     if (_user !== null) {
