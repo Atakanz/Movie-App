@@ -12,7 +12,7 @@ export const SettingStack = () => {
       screenOptions={{
         headerShown: false,
       }}>
-      <Stack.Screen name="Settings" component={Settings} />
+      <Stack.Screen name="Setting" component={Settings} />
       <Stack.Screen name="ThemeSettings" component={ThemeSettings} />
       <Stack.Screen name="EditProfile" component={EditProfile} />
     </Stack.Navigator>
