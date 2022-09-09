@@ -1,11 +1,38 @@
-import React from 'react';
-import {SafeAreaView, Text} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {SafeAreaView, TextInput, FlatList, Text} from 'react-native';
 import styles from './searchMovie.style';
+import MovieCard from '../../Components/MovieCards/MovieCard';
+import {useDispatch, useSelector} from 'react-redux';
+import {setMovieList} from '../../Management/Features/MovieList/movieListSlice';
 
-const SearchMovie = () => {
+const SearchMovie = ({navigation}) => {
+  const movieList = useSelector(state => state.movieList.movieList);
+  const [list, setList] = useState([]);
+
+  const handleSearch = text => {
+    const filteredList = movieList.filter(item => {
+      const searchedText = text.toLowerCase();
+      const currentTitle = item.title.toLowerCase();
+      return currentTitle.indexOf(searchedText) > -1;
+    });
+    setList(filteredList);
+  };
+
   return (
     <SafeAreaView>
-      <Text>Hello SearchMovie!</Text>
+      <TextInput placeholder="Search a movie" onChangeText={handleSearch} />
+      <FlatList
+        data={list}
+        renderItem={({item}) => (
+          <MovieCard
+            title={item.title}
+            voteAverage={item.vote_average}
+            posterPath={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
+            date={item.release_date}
+            task={() => navigation.navigate('MovieDetail', {item})}
+          />
+        )}
+      />
     </SafeAreaView>
   );
 };
