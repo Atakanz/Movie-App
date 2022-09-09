@@ -78,6 +78,8 @@ const SignIn = ({navigation}) => {
         userNameFormTask={value => setUserName(value)}
         task1={logInButton}
         task2={signUpButton}
+        visibilityFalse={false}
+        visibilityTrue={true}
       />
     </SafeAreaView>
   );
