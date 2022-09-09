@@ -9,6 +9,7 @@ const FormUnit = props => {
       label={props.labelName}
       placeholder={props.holder}
       onChangeText={props.task}
+      secureTextEntry={props.visibility}
     />
   );
 };

@@ -20,12 +20,14 @@ const LoginForm = props => {
             holder={props.holder1}
             value={props.value1}
             task={props.emailFormTask}
+            visibility={props.visibilityFalse}
           />
           <FormUnit
             labelName="Password"
             value={props.value2}
             holder={props.holder2}
             task={props.passwordFormTask}
+            visibility={props.visibilityTrue}
           />
 
           {props.holder3 && (
@@ -34,6 +36,7 @@ const LoginForm = props => {
               value={props.value3}
               holder={props.holder3}
               task={props.repasswordFormTask}
+              visibility={props.visibilityTrue}
             />
             // passwordagain is shown only signup page
           )}
@@ -42,6 +45,7 @@ const LoginForm = props => {
             value={props.value4}
             holder={props.holder4}
             task={props.userNameFormTask}
+            visibility={props.visibilityFalse}
           />
         </View>
       </View>
