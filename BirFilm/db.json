@@ -11,6 +11,42 @@
       "password": "1234",
       "username": "atakaanz",
       "id": 2
-    }   
+    },
+    {
+      "email": "atakan",
+      "password": "z12",
+      "username": "atknzz",
+      "id": 3
+    },
+    {
+      "email": "atakanz@gmail.com",
+      "password": "123",
+      "username": "atknz",
+      "id": 4
+    },
+    {
+      "email": "atakanz@gmail.com",
+      "password": "123",
+      "username": "atknz",
+      "id": 5
+    },
+    {
+      "email": "atakanz@gmail.com",
+      "password": "1234",
+      "username": "atakanzz",
+      "id": 6
+    },
+    {
+      "email": "atakanz@gmail.com",
+      "password": "12345",
+      "username": "atakanzz",
+      "id": 7
+    },
+    {
+      "email": "atakanz@gmail.com",
+      "password": "123456",
+      "username": "atknz",
+      "id": 8
+    }
   ]
 }
