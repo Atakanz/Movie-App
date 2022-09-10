@@ -10,9 +10,10 @@ export default StyleSheet.create({
     paddingHorizontal: 10,
   },
   buttons: {
-    backgroundColor: 'darkblue',
+    backgroundColor: '#2874a6',
+    opacity: 0.95,
     padding: 10,
-    borderRadius: 15,
+    borderRadius: 12,
     width: Dimensions.get('window').width / 2.8,
     alignItems: 'center',
     marginVertical: 8,

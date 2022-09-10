@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {SafeAreaView, Alert} from 'react-native';
 import styles from './signIn.style';
 import LoginForm from '../../Components/LoginForm/LoginForm';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import axios from 'axios';
 import {setUser} from '../../Management/Features/Login/userSlice';
 import {setAuth} from '../../Management/Features/Auth/authSlice';
@@ -12,6 +12,7 @@ const SignIn = ({navigation}) => {
   const [userEmail, setUserEmail] = useState(null);
   const [userPassword, setUserPassword] = useState(null);
   const [userName, setUserName] = useState(null);
+  const theme = useSelector(state => state.theme.theme);
 
   const signUpButton = () => {
     navigation.navigate('SignUp');
@@ -31,25 +32,31 @@ const SignIn = ({navigation}) => {
   }, []);
 
   const logInButton = () => {
-    const result = allUserArray.some(function (item) {
+    const isExist = allUserArray.some(function (item) {
       return (
         item.email === userEmail &&
         item.password === userPassword &&
         item.username === userName
       );
     });
-    if (result === true) {
+    const indexValue = allUserArray.indexOf(
+      allUserArray.find(function (item) {
+        return item.email === userEmail;
+      }),
+    );
+    if (isExist === true) {
       dispatch(
         setUser({
           email: userEmail,
           password: userPassword,
           username: userName,
+          id: allUserArray[indexValue].id,
         }),
       );
       dispatch(setAuth(true));
       navigation.navigate('BottomTab');
       AsyncStorage.setItem(
-        'savedItem',
+        'savedUser',
         JSON.stringify({
           email: userEmail,
           password: userPassword,
@@ -62,7 +69,7 @@ const SignIn = ({navigation}) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, styles[`container${theme}`]]}>
       <LoginForm
         isLogoExist={require('../../Assets/logo.png')}
         holder1="E-mail"

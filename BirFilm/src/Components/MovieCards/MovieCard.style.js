@@ -17,4 +17,16 @@ export default StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
+  textTitleLight: {
+    color: '#212121',
+  },
+  textTitleDark: {
+    color: '#fff',
+  },
+  subTextDark: {
+    color: '#fff',
+  },
+  subTextLight: {
+    color: '#212121',
+  },
 });

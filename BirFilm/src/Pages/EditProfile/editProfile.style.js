@@ -31,7 +31,4 @@ export default StyleSheet.create({
   containerLight: {
     backgroundColor: '#fff',
   },
-  enabledDirection: {
-    flex: 1,
-  },
 });

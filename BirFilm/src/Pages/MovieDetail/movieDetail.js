@@ -2,8 +2,10 @@ import React, {useEffect, useState} from 'react';
 import {SafeAreaView, Text, View, Image, ScrollView} from 'react-native';
 import styles from './movieDetail.style';
 import axios from 'axios';
+import {useSelector} from 'react-redux';
 
 const MovieDetail = ({route, navigation}) => {
+  const theme = useSelector(state => state.theme.theme);
   const [category, setCategory] = useState([]);
   useEffect(() => {
     axios
@@ -12,13 +14,21 @@ const MovieDetail = ({route, navigation}) => {
       )
       .then(response => {
         setCategory(response.data.genres);
+        console.log(response.data);
       });
   }, []);
   const {item} = route.params;
-  const genreNames = category.filter(genre => genre.id === item.genre_ids);
-  const onlyGenreNames = genreNames.map(item => item.name);
+  const genreNames = [];
+  for (var i = 0; i < item.genre_ids.length; i++) {
+    const indexOfTypes = category.indexOf(
+      category.find(function (elem) {
+        return elem.id === item.genre_ids[i];
+      }),
+    );
+    genreNames.push(category[indexOfTypes].name);
+  }
   return (
-    <ScrollView>
+    <ScrollView style={[styles.container, styles[`container${theme}`]]}>
       <View style={styles.coverPhotoView}>
         <Image
           style={styles.coverPhoto}
@@ -26,13 +36,17 @@ const MovieDetail = ({route, navigation}) => {
         />
       </View>
       <View style={styles.coverPhotoView}>
-        <Text style={styles.textTitle}>{item.title}</Text>
+        <Text style={[styles.textTitle, styles[`textTitle${theme}`]]}>
+          {item.title}
+        </Text>
       </View>
       <View style={styles.coverPhotoView}>
-        <Text style={styles.textOverview}>{item.overview}</Text>
+        <Text style={[styles.textOverview, styles[`textOverview${theme}`]]}>
+          {item.overview}
+        </Text>
       </View>
       <View style={styles.coverPhotoView}>
-        <Text style={styles.textOverview}>{onlyGenreNames.join(',')}</Text>
+        <Text style={styles.textOverview}>{genreNames.join(',')}</Text>
       </View>
     </ScrollView>
   );

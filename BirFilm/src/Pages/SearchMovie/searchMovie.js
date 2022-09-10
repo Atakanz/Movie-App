@@ -2,12 +2,12 @@ import React, {useState, useEffect} from 'react';
 import {SafeAreaView, TextInput, FlatList, Text} from 'react-native';
 import styles from './searchMovie.style';
 import MovieCard from '../../Components/MovieCards/MovieCard';
-import {useDispatch, useSelector} from 'react-redux';
-import {setMovieList} from '../../Management/Features/MovieList/movieListSlice';
+import {useSelector} from 'react-redux';
 
 const SearchMovie = ({navigation}) => {
   const movieList = useSelector(state => state.movieList.movieList);
   const [list, setList] = useState([]);
+  const theme = useSelector(state => state.theme.theme);
 
   const handleSearch = text => {
     const filteredList = movieList.filter(item => {
@@ -19,8 +19,13 @@ const SearchMovie = ({navigation}) => {
   };
 
   return (
-    <SafeAreaView>
-      <TextInput placeholder="Search a movie" onChangeText={handleSearch} />
+    <SafeAreaView style={[styles.container, styles[`container${theme}`]]}>
+      <TextInput
+        style={styles.textInput}
+        placeholder="Search a movie"
+        onChangeText={handleSearch}
+        placeholderTextColor={theme === 'Light' ? '#212121' : '#fff'}
+      />
       <FlatList
         data={list}
         renderItem={({item}) => (

@@ -2,18 +2,20 @@ import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   formUnit: {
-    borderRadius: 20,
+    borderTopWidth: 0,
+    borderLeftWidth: 0,
+    borderRightWidth: 0,
+    borderBottomWidth: 2,
     borderWidth: 2.5,
     width: '70%',
-    borderColor: '#850e35',
     marginVertical: 10,
   },
-  // formUnitDark: {
-  //   backgroundColor: '#212121',
-  //   color: '#fff',
-  // },
-  // formUnitLight: {
-  //   backgroundColor: '#fff',
-  //   color: '#212121',
-  // },
+  formUnitDark: {
+    color: '#fff',
+    borderColor: '#fff',
+  },
+  formUnitLight: {
+    color: '#212121',
+    borderColor: 'black',
+  },
 });

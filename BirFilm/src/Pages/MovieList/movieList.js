@@ -6,8 +6,10 @@ import {useDispatch, useSelector} from 'react-redux';
 import {setMovieList} from '../../Management/Features/MovieList/movieListSlice';
 import MovieCard from '../../Components/MovieCards/MovieCard';
 import FilterButtons from '../../Components/FilterButtons/FilterButtons';
+import moment from 'moment';
 
 const MovieList = ({navigation}) => {
+  const theme = useSelector(state => state.theme.theme);
   const dispatch = useDispatch();
   const [movieInfo, setMovieInfo] = useState([]);
   useEffect(() => {
@@ -27,8 +29,11 @@ const MovieList = ({navigation}) => {
     setMovieInfo(topRated);
   };
   const newestFilter = () => {
+    const date = moment().utc().format('YYYY-MM-DDTHH:mm:ss.SSSZZ');
+    const monthStart = parseInt(date[5] + date[6]) - 2;
+    console.log(monthStart);
     const newests = defaultMovie.filter(
-      item => parseInt(item.release_date[6]) > 7,
+      item => parseInt(item.release_date[6]) > monthStart,
     );
     setMovieInfo(newests);
   };
@@ -37,7 +42,7 @@ const MovieList = ({navigation}) => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={[styles.container, styles[`container${theme}`]]}>
       <FlatList
         ListHeaderComponent={() => (
           <FilterButtons

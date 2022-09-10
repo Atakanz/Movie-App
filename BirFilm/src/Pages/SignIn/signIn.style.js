@@ -6,4 +6,10 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  containerLight: {
+    backgroundColor: '#fff',
+  },
+  containerDark: {
+    backgroundColor: '#212121',
+  },
 });

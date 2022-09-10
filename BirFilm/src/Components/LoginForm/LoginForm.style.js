@@ -11,15 +11,15 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   logoView: {
-    marginBottom: 25,
+    marginBottom: 17,
     alignItems: 'center',
   },
   logo: {
-    width: 300,
+    width: 140,
     height: 100,
   },
   buttonRow: {
     flexDirection: 'row',
-    marginTop: 25,
+    marginTop: 30,
   },
 });

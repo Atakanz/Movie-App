@@ -25,8 +25,9 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   profileName: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
+    marginTop: 20,
   },
   textLight: {
     color: '#212121',
