@@ -12,15 +12,14 @@ export default StyleSheet.create({
   },
   coverPhoto: {
     width: '100%',
-    height: Dimensions.get('window').height / 1.2,
+    height: Dimensions.get('window').height / 1.1,
     resizeMode: 'contain',
   },
   textTitle: {
-    fontSize: 30,
+    fontSize: 35,
     fontWeight: 'bold',
     paddingLeft: 10,
     paddingTop: 10,
-    color: 'black',
   },
   textOverview: {
     fontSize: 16,
@@ -40,6 +39,37 @@ export default StyleSheet.create({
     color: '#fff',
   },
   textTitleLight: {
-    color: '#212121',
+    color: '#2874a6',
+  },
+  categoryDark: {
+    color: '#2874a6',
+  },
+  categoryLight: {
+    color: 'darkgray',
+  },
+  category: {
+    marginTop: 5,
+    fontStyle: 'italic',
+    fontWeight: 'bold',
+    paddingLeft: 10,
+  },
+  textYear: {
+    borderRadius: 10,
+    marginVertical: 4,
+    width: 'auto',
+    marginHorizontal: 10,
+    alignSelf: 'flex-start',
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    marginRight: 'auto',
+    borderWidth: 1,
+    fontSize: 13,
+  },
+  textYearDark: {
+    color: '#fff',
+    borderColor: '#2874a6',
+  },
+  textYearLight: {
+    color: '#2874a6',
   },
 });
