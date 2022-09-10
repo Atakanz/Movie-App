@@ -19,17 +19,24 @@ const SignIn = ({navigation}) => {
   };
 
   const [allUserArray, setAllUserArray] = useState([]);
+  // the array will be set with the data coming from api
 
   const dispatch = useDispatch();
 
-  const handleGetUsers = () => {
+  const getUsers = () => {
     axios.get('http://localhost:3000/users').then(response => {
       setAllUserArray(response.data);
     });
   };
+  // user list is taken from api and setted 
+
   useEffect(() => {
-    handleGetUsers();
-  }, []);
+    const unsubscribe = navigation.addListener('focus', () => {
+      getUsers();
+    });
+    return unsubscribe;
+  }, [navigation]);
+  // when navigate back from signup page, re-take the apı
 
   const logInButton = () => {
     const isExist = allUserArray.some(function (item) {
@@ -39,11 +46,13 @@ const SignIn = ({navigation}) => {
         item.username === userName
       );
     });
+    // if exist return true
     const indexValue = allUserArray.indexOf(
       allUserArray.find(function (item) {
         return item.email === userEmail;
       }),
     );
+    // take the id of the user to re-use in the edit page for axios putting
     if (isExist === true) {
       dispatch(
         setUser({
@@ -53,6 +62,7 @@ const SignIn = ({navigation}) => {
           id: allUserArray[indexValue].id,
         }),
       );
+      // if matched, set the redux user
       dispatch(setAuth(true));
       navigation.navigate('BottomTab');
       AsyncStorage.setItem(
@@ -63,6 +73,7 @@ const SignIn = ({navigation}) => {
           username: userName,
         }),
       );
+      // save to the memo of phone
     } else {
       Alert.alert('Bir Film', 'User not found');
     }
@@ -87,6 +98,7 @@ const SignIn = ({navigation}) => {
         task2={signUpButton}
         visibilityFalse={false}
         visibilityTrue={true}
+        // password input
       />
     </SafeAreaView>
   );

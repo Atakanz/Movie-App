@@ -15,6 +15,7 @@ const ThemeSettings = ({navigation}) => {
     } else {
       dispatch(setTheme('Light'));
     }
+    // if theme is light, toggle to dark
   };
 
   return (

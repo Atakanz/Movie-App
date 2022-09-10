@@ -28,6 +28,7 @@ const SignUp = ({navigation}) => {
         password: newUserPassword,
         username: newUserName,
       });
+      // post new user to fake apı
     } else {
       Alert.alert('Bir Film', 'Passwords do not match');
       return;
@@ -37,7 +38,6 @@ const SignUp = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text>{newUserEmail}</Text>
       <LoginForm
         isLogoExist={require('../../Assets/logo.png')}
         // logo is shown only loginpages not editing page

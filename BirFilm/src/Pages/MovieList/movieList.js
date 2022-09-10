@@ -10,8 +10,10 @@ import moment from 'moment';
 
 const MovieList = ({navigation}) => {
   const theme = useSelector(state => state.theme.theme);
+  // take theme info
   const dispatch = useDispatch();
   const [movieInfo, setMovieInfo] = useState([]);
+  // this will be the data of flat list
   useEffect(() => {
     axios
       .get(
@@ -22,12 +24,14 @@ const MovieList = ({navigation}) => {
         setMovieInfo(response.data.results);
       });
   }, []);
+  // when the page is shown take the data of apı
 
   const defaultMovie = useSelector(state => state.movieList.movieList);
   const topRatedFilter = () => {
     const topRated = defaultMovie.filter(item => item.vote_average > 7.7);
     setMovieInfo(topRated);
   };
+  // when the movie point is more than 7.7, then filter the redux movie list
   const newestFilter = () => {
     const date = moment().utc().format('YYYY-MM-DDTHH:mm:ss.SSSZZ');
     const monthStart = parseInt(date[5] + date[6]) - 2;
@@ -35,11 +39,13 @@ const MovieList = ({navigation}) => {
     const newests = defaultMovie.filter(
       item => parseInt(item.release_date[6]) > monthStart,
     );
+    // when the movie just one month old, then set flatlist data with filtered
     setMovieInfo(newests);
   };
   const allMovies = () => {
     setMovieInfo(defaultMovie);
   };
+  // for all movies
 
   return (
     <SafeAreaView style={[styles.container, styles[`container${theme}`]]}>

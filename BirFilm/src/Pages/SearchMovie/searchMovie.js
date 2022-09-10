@@ -6,6 +6,7 @@ import {useSelector} from 'react-redux';
 
 const SearchMovie = ({navigation}) => {
   const movieList = useSelector(state => state.movieList.movieList);
+  // redux movie list will be filtered and will be setted to local state
   const [list, setList] = useState([]);
   const theme = useSelector(state => state.theme.theme);
 
@@ -13,7 +14,9 @@ const SearchMovie = ({navigation}) => {
     const filteredList = movieList.filter(item => {
       const searchedText = text.toLowerCase();
       const currentTitle = item.title.toLowerCase();
+      // on the condition of lower case written, then find the match
       return currentTitle.indexOf(searchedText) > -1;
+      // if the match exists,  the result will be not -1
     });
     setList(filteredList);
   };

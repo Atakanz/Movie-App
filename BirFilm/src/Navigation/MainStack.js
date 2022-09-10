@@ -10,30 +10,28 @@ import {setUser} from '../Management/Features/Login/userSlice';
 import {setAuth} from '../Management/Features/Auth/authSlice';
 import {setLoading} from '../Management/Features/Loading/loadingSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Loading from '../Components/Loading/loading';
+import Loading from '../Components/Loading';
 const Stack = createNativeStackNavigator();
 
 export const MainStack = () => {
   const dispatch = useDispatch();
+  const user = useSelector(state => state.user.user);
   const getSavedItem = async () => {
-    let userData = await AsyncStorage.getItem('savedItem');
+    let userData = await AsyncStorage.getItem('savedUser');
     const _user = userData ? JSON.parse(userData) : null;
     dispatch(setUser(_user));
     dispatch(setLoading(false));
+    // loading is set to true by default, but when the user is found stop the loading
     if (_user !== null) {
       dispatch(setAuth(true));
     }
   };
-  //   const getLoginStatus = async () => {
-  //     let status = await AsyncStorage.getItem('savedLoginStatus');
-  //   };
+
   useEffect(() => {
     getSavedItem();
   }, []);
 
-  const user = useSelector(state => state.user.user);
   const isLoading = useSelector(state => state.loading.loading);
-  console.log(isLoading);
   return (
     <NavigationContainer>
       {isLoading === true ? (

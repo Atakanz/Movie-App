@@ -28,6 +28,7 @@ const EditProfile = ({navigation}) => {
       id: userInfo.id,
     });
   };
+  // according to the user info id, set the user profile with new choices
 
   const changeInformation = () => {
     dispatch(

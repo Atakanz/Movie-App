@@ -10,11 +10,13 @@ const MovieDetail = ({route, navigation}) => {
   const genreNames = [];
   for (var i = 0; i < item.genre_ids.length; i++) {
     const indexOfTypes = Category.genres.indexOf(
+      // find the index of the specific movie genre id's in the json data
       Category.genres.find(function (elem) {
         return elem.id === item.genre_ids[i];
       }),
     );
     genreNames.push(Category.genres[indexOfTypes].name);
+    // push the new array consisting of the genre names of the movie
   }
   return (
     <ScrollView style={[styles.container, styles[`container${theme}`]]}>
